@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, Button } from 'react-native'
 
-const OnBrodingHeader = ({ screenIndex }) => {
+const OnBrodingHeader = ({ screenIndex, handleNavigator }) => {
   return (
     <View
       style={{
@@ -18,6 +18,7 @@ const OnBrodingHeader = ({ screenIndex }) => {
         <Text style={{ fontWeight: 'bold', fontSize: 18 }}>{screenIndex}</Text>/3
       </Text>
       <Text
+        onPress={handleNavigator}
         style={{
           fontWeight: 'bold',
           fontSize: 18,

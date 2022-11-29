@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Image, Text, Button, TouchableWithoutFeedback } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useSelector, useDispatch } from 'react-redux'
+import { TextButton } from '../../../components/ComponentUtils'
+import { onbrodingLoading, onbrodingReceived, onbrodingFailed } from '../redux/onbrodingSlice'
 const OnbrodingBody = ({ setScreenIndex, dataOnbrodingScreen }) => {
+  // const onbroding = useSelector((state) => state.onbroding)
+  // const dispatch = useDispatch()
+
+  // useEffect(() => {
+  //   dispatch(onbrodingLoading())
+  //   dispatch(onbrodingReceived())
+  // }, [])
+
   return (
     <View
       style={{
@@ -16,7 +26,7 @@ const OnbrodingBody = ({ setScreenIndex, dataOnbrodingScreen }) => {
           width: '100%',
           flex: 6,
         }}
-        source={dataOnbrodingScreen.image}
+        source={dataOnbrodingScreen?.image}
       />
 
       <Text
@@ -45,40 +55,14 @@ const OnbrodingBody = ({ setScreenIndex, dataOnbrodingScreen }) => {
           marginTop: 20,
         }}
       >
-        <TouchableWithoutFeedback
+        <TextButton
+          title={dataOnbrodingScreen?.labelButton}
           onPress={() => {
             setScreenIndex((prevIndex) => {
-              if (prevIndex < 3) {
-                return prevIndex + 1
-              } else {
-                return 3
-              }
+              return prevIndex + 1
             })
           }}
-        >
-          <View
-            style={{
-              elevation: 8,
-              backgroundColor: '#f77951',
-              borderRadius: 30,
-              width: 200,
-              height: 50,
-              paddingVertical: 10,
-              paddingHorizontal: 12,
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 18,
-                color: '#fff',
-                fontWeight: 'bold',
-                alignSelf: 'center',
-              }}
-            >
-              {dataOnbrodingScreen?.labelButton}
-            </Text>
-          </View>
-        </TouchableWithoutFeedback>
+        />
       </View>
     </View>
   )
