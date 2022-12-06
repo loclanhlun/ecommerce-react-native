@@ -1,46 +1,56 @@
 import React from 'react'
 import { Text, View } from 'react-native'
+import CheckBox from '@react-native-community/checkbox'
 import { InputIcon, TextButton } from '../../../components/ComponentUtils'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
-import { authLoading, authReceived, authFailed } from '../redux/authSlice'
-import { useDispatch, useSelector } from 'react-redux'
-const LoginForm = ({ navigation }) => {
-  const auth = useSelector((state) => state.auth)
-  console.log(auth)
-  const dispatch = useDispatch()
+import { withNextInputAutoFocusForm } from 'react-native-formik'
+const Form = withNextInputAutoFocusForm(View)
+const SignUpForm = ({ navigation }) => {
+  const initialValue = {
+    name: '',
+    email: '',
+    password: '',
+    isSelected: false,
+  }
   const validationSchema = Yup.object().shape({
+    name: Yup.string().required('Field is required'),
     email: Yup.string().required('Field is required').email("Well that's not an email"),
     password: Yup.string().required('Field is required').min(2, 'Pretty sure this will be hacked'),
   })
-  const handleNavigation = () => {
-    navigation.navigate('DrawerMenu')
-  }
+  //   const handleNavigation = () => {
+  //     navigation.navigate('DrawerMenu')
+  //   }
   return (
     <Formik
-      initialValues={{ email: '', password: '' }}
       onSubmit={(values) => {
-        dispatch(authLoading(values))
-        setTimeout(() => {
-          dispatch(authReceived())
-        }, 3)
+        console.log(values)
         handleNavigation()
       }}
+      initialValues={initialValue}
       validationSchema={validationSchema}
       style={{
         padding: 20,
       }}
-    >
-      {({ handleChange, handleBlur, values, touched, errors, handleSubmit }) => {
+      render={({ handleChange, handleBlur, values, touched, errors, handleSubmit }) => {
         return (
-          <View>
+          <Form>
+            <InputIcon
+              tintColor="#f77951"
+              placeholder="Name"
+              handleChange={handleChange('name')}
+              value={values.name}
+              icon={require('../../../../assets/images/user-icon.png')}
+            />
+            {errors.name && touched.name && (
+              <Text style={{ marginLeft: 10, color: 'red' }}>{errors.name}</Text>
+            )}
             <InputIcon
               tintColor="#f77951"
               icon={require('../../../../assets/images/email-icon.png')}
               placeholder="Email"
               handleChange={handleChange('email')}
               value={values.email}
-              underlineColorAndroid="transparent"
             />
             {errors.email && touched.email && (
               <Text style={{ marginLeft: 10, color: 'red' }}>{errors.email}</Text>
@@ -58,15 +68,13 @@ const LoginForm = ({ navigation }) => {
             <View
               style={{
                 flexDirection: 'row',
-                justifyContent: 'flex-end',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
               }}
             >
-              <Text
-                style={{
-                  color: 'black',
-                }}
-              >
-                Forgot password?
+              <CheckBox value={values.isSelected} onValueChange={handleChange('isSelected')} />
+              <Text>
+                I accept all this <Text style={{ color: 'black' }}>Term & Conditions</Text>
               </Text>
             </View>
 
@@ -77,13 +85,13 @@ const LoginForm = ({ navigation }) => {
                 marginTop: 30,
               }}
             >
-              <TextButton disable={false} title={'Log in'} onPress={handleSubmit} />
+              <TextButton disable={!values.isSelected} title={'Sign Up'} onPress={handleSubmit} />
             </View>
-          </View>
+          </Form>
         )
       }}
-    </Formik>
+    />
   )
 }
 
-export default LoginForm
+export default SignUpForm

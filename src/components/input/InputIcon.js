@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image, TextInput, View } from 'react-native'
 
-export const InputIcon = ({ placeholder, icon, onchangeText, tintColor }) => {
+export const InputIcon = ({ placeholder, icon, tintColor, handleChange, value }) => {
   return (
     <View
       style={{
@@ -36,9 +36,8 @@ export const InputIcon = ({ placeholder, icon, onchangeText, tintColor }) => {
           color: '#424242',
         }}
         placeholder={placeholder}
-        onChangeText={(value) => {
-          onchangeText(value)
-        }}
+        onChangeText={handleChange}
+        value={value}
         underlineColorAndroid="transparent"
       />
     </View>

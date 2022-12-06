@@ -1,15 +1,16 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { persistReducer, persistStore, REGISTER } from 'redux-persist'
-import onbrodingReducer from '../screens/onbroding/redux/onbrodingSlice'
+import authReducer from '../screens/login/redux/authSlice'
 import thunk from 'redux-thunk'
 const rootReducer = combineReducers({
-  onbroding: onbrodingReducer,
+  auth: authReducer,
 })
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
+  whitelist: ['auth'],
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 

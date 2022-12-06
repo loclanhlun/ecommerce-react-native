@@ -2,15 +2,11 @@ import React, { useState } from 'react'
 import { Image, ScrollView, View, Dimensions, Text, StatusBar } from 'react-native'
 import LoginForm from './components/LoginForm'
 import Separation from './components/Separation'
+import SignUpForm from './components/SignUpForm'
 import SocialLogin from './components/SocialLogin'
 const windowWidth = Dimensions.get('window').width
-const Login = () => {
-  const [emailValue, setEmailValue] = useState('')
-  const [passwordValue, setPasswordValue] = useState('')
-  const [nameValue, setNameValue] = useState('')
-  const [isSelected, setIsSelected] = useState(false)
+const Login = ({ navigation }) => {
   const [isSignUp, setIsSignUp] = useState(false)
-  console.log(emailValue, passwordValue)
 
   return (
     <ScrollView
@@ -45,14 +41,11 @@ const Login = () => {
             marginTop: 30,
           }}
         >
-          <LoginForm
-            setEmailValue={setEmailValue}
-            setPasswordValue={setPasswordValue}
-            setNameValue={setNameValue}
-            setIsSelected={setIsSelected}
-            isSelected={isSelected}
-            isSignUp={isSignUp}
-          />
+          {!isSignUp ? (
+            <LoginForm navigation={navigation} />
+          ) : (
+            <SignUpForm navigation={navigation} />
+          )}
         </View>
         <View
           style={{
