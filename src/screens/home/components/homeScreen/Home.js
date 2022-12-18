@@ -2,11 +2,14 @@ import React, { useState } from 'react'
 import { ScrollView } from 'react-native'
 import BodyHome from './BodyHome'
 import FooterHome from './FooterHome'
-import HeaderHome from './HeaderHome'
+import Header from '../Header'
+import Search from '../searchScreen/Search'
 
 const Home = ({ navigation }) => {
   const [selectedId, setSelectedId] = useState(null)
   const [selectedNewArrivalId, setSelectedNewArrivalId] = useState(null)
+  const [isSearch, setIsSearch] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false)
   const DATA_CATEGORIES = [
     {
       id: '1',
@@ -69,23 +72,35 @@ const Home = ({ navigation }) => {
   ]
   return (
     <>
-      <HeaderHome navigation={navigation} />
-      <ScrollView
-        style={{
-          flex: 1,
-        }}
-      >
-        <BodyHome
-          data={DATA_CATEGORIES}
-          newArrialData={DATA_NEW_ARRIVAL}
-          selectedId={selectedId}
-          setSelectedId={setSelectedId}
-          selectedNewArrivalId={selectedNewArrivalId}
-          setSelectedNewArrivalId={setSelectedNewArrivalId}
+      {!isSearch ? (
+        <>
+          <Header navigation={navigation} />
+          <ScrollView
+            style={{
+              flex: 1,
+            }}
+          >
+            <BodyHome
+              data={DATA_CATEGORIES}
+              newArrialData={DATA_NEW_ARRIVAL}
+              selectedId={selectedId}
+              setSelectedId={setSelectedId}
+              selectedNewArrivalId={selectedNewArrivalId}
+              setSelectedNewArrivalId={setSelectedNewArrivalId}
+              setIsSearch={setIsSearch}
+              isSearch={isSearch}
+              navigation={navigation}
+            />
+          </ScrollView>
+          <FooterHome />
+        </>
+      ) : (
+        <Search
+          navigation={navigation}
+          modalVisible={modalVisible}
+          setModalVisible={setModalVisible}
         />
-      </ScrollView>
-
-      <FooterHome />
+      )}
     </>
   )
 }

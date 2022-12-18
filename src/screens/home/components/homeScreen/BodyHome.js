@@ -11,7 +11,12 @@ const BodyHome = ({
   newArrialData,
   selectedNewArrivalId,
   setSelectedNewArrivalId,
+  setIsSearch,
 }) => {
+  const handleSetSelectedId = () => {
+    setSelectedId()
+    setIsSearch(true)
+  }
   return (
     <View
       style={{
@@ -19,6 +24,7 @@ const BodyHome = ({
       }}
     >
       {/* Title */}
+
       <Text
         style={{
           marginTop: 10,
@@ -38,9 +44,10 @@ const BodyHome = ({
       >
         best Outfits for you
       </Text>
+
       {/* Search bar */}
       <SearchBar />
-      <Categories data={data} selectedId={selectedId} setSelectedId={setSelectedId} />
+      <Categories data={data} selectedId={selectedId} setSelectedId={handleSetSelectedId} />
       <NewArrival
         newArrialData={newArrialData}
         selectedId={selectedNewArrivalId}

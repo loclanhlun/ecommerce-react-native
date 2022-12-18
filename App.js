@@ -14,7 +14,7 @@ const App = () => {
       <PersistGate loading={<Text>LOADING...</Text>} persistor={persistor}>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="Onbroding"
+            initialRouteName="DrawerMenu"
             screenOptions={{
               headerShown: false,
             }}
