@@ -1,9 +1,9 @@
 import React from 'react'
-import { Text, TouchableWithoutFeedback, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 
 export const TextButton = ({ onPress, title, disable }) => {
   return (
-    <TouchableWithoutFeedback disabled={disable} onPress={onPress}>
+    <TouchableOpacity disabled={disable} onPress={onPress}>
       <View
         style={{
           elevation: 8,
@@ -26,6 +26,6 @@ export const TextButton = ({ onPress, title, disable }) => {
           {title}
         </Text>
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   )
 }

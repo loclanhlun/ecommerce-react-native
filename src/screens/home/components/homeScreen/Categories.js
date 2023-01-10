@@ -27,7 +27,7 @@ const CategoryItem = ({ title, image, textColor, backgroundColor, onPress }) => 
   )
 }
 
-const Categories = ({ data, selectedId, setSelectedId }) => {
+const Categories = ({ data, handleSetSelectedId }) => {
   return (
     <View>
       <FlatList
@@ -35,19 +35,14 @@ const Categories = ({ data, selectedId, setSelectedId }) => {
         scrollEnabled={true}
         data={data}
         renderItem={({ item }) => {
-          const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#ffffff'
-          const color = item.id === selectedId ? 'white' : 'black'
           return (
             <CategoryItem
-              backgroundColor={backgroundColor}
-              onPress={() => setSelectedId(item.id)}
-              textColor={color}
+              onPress={() => handleSetSelectedId(item.name)}
               title={item.title}
               image={item.image}
             />
           )
         }}
-        extraData={selectedId}
         keyExtractor={(item) => item.id}
         showsHorizontalScrollIndicator={false}
       />

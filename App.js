@@ -3,10 +3,9 @@ import { Text } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { OnBroding, Login, DrawerMenu } from './src/screens'
-import { Provider, useSelector } from 'react-redux'
+import { Provider } from 'react-redux'
 import { persistor, store } from './src/redux/store'
 import { PersistGate } from 'redux-persist/integration/react'
-import { createDrawerNavigator } from '@react-navigation/drawer'
 const Stack = createNativeStackNavigator()
 const App = () => {
   return (

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Image, TextInput, TouchableOpacity, View } from 'react-native'
 
-const SearchBar = () => {
+const SearchBar = ({ searchText, setSearchText }) => {
   return (
     <View>
       <View
@@ -38,8 +38,9 @@ const SearchBar = () => {
             //   color: '#424242',
           }}
           placeholder={'Search items...'}
+          defaultValue={searchText}
           onChangeText={(value) => {
-            console.log(value)
+            setSearchText(value)
           }}
           underlineColorAndroid="transparent"
         />

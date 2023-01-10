@@ -14,7 +14,10 @@ const ProductItem = ({ image, backgroundColor, textColor, price, title, onPress 
       }}
     >
       <TouchableOpacity onPress={onPress}>
-        <Image style={{ height: 150, width: '100%' }} source={image} />
+        <Image
+          style={{ height: 150, width: '100%', resizeMode: 'contain' }}
+          source={{ uri: image }}
+        />
         <View
           style={{
             flexDirection: 'row',
@@ -39,10 +42,7 @@ const ProductItem = ({ image, backgroundColor, textColor, price, title, onPress 
           </Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={{ position: 'absolute', top: 10, right: 10 }}
-        onPress={() => console.log('liked')}
-      >
+      <TouchableOpacity style={{ position: 'absolute', top: 10, right: 10 }}>
         <Image
           style={{ width: 30, height: 30 }}
           source={require('../../../../../assets/images/heart-icon.png')}

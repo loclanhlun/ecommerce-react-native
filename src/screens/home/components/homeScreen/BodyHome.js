@@ -6,16 +6,14 @@ import SearchBar from './SearchBar'
 
 const BodyHome = ({
   data,
-  selectedId,
-  setSelectedId,
   newArrialData,
-  selectedNewArrivalId,
-  setSelectedNewArrivalId,
-  setIsSearch,
+  handleClickProduct,
+  setSearchText,
+  searchText,
+  setModalVisible,
 }) => {
-  const handleSetSelectedId = () => {
-    setSelectedId()
-    setIsSearch(true)
+  const handleSetSelectedId = (category) => {
+    setSearchText(category)
   }
   return (
     <View
@@ -45,14 +43,8 @@ const BodyHome = ({
         best Outfits for you
       </Text>
 
-      {/* Search bar */}
-      <SearchBar />
-      <Categories data={data} selectedId={selectedId} setSelectedId={handleSetSelectedId} />
-      <NewArrival
-        newArrialData={newArrialData}
-        selectedId={selectedNewArrivalId}
-        setSelectedId={setSelectedNewArrivalId}
-      />
+      <Categories data={data} handleSetSelectedId={handleSetSelectedId} />
+      <NewArrival newArrialData={newArrialData} handleClickProduct={handleClickProduct} />
     </View>
   )
 }

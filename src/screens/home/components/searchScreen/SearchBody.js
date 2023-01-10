@@ -5,21 +5,13 @@ import ProductList from './ProductList'
 import SearchBar from './SearchBar'
 const windowWidth = Dimensions.get('window').width
 
-const SearchBody = ({
-  productListData,
-  selectedId,
-  setSelectedId,
-  likedId,
-  setLikedId,
-  setModalVisible,
-}) => {
+const SearchBody = ({ setModalVisible, handleClickProduct, productsData }) => {
   return (
     <View
       style={{
         marginHorizontal: 20,
       }}
     >
-      <SearchBar setModalVisible={setModalVisible} />
       <TouchableOpacity
         style={{
           flexDirection: 'row',
@@ -73,13 +65,7 @@ const SearchBody = ({
             width: windowWidth,
           }}
         >
-          <ProductList
-            productListData={productListData}
-            selectedId={selectedId}
-            setSelectedId={setSelectedId}
-            likedId={likedId}
-            setLikedId={setLikedId}
-          />
+          <ProductList productsData={productsData} handleClickProduct={handleClickProduct} />
         </View>
       </View>
     </View>

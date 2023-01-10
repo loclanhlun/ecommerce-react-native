@@ -13,7 +13,10 @@ const NewArrialItem = ({ title, image, price, textColor, backgroundColor, onPres
       }}
     >
       <TouchableOpacity onPress={onPress}>
-        <Image style={{ height: 150, width: '100%' }} source={image} />
+        <Image
+          style={{ height: 150, width: '100%', resizeMode: 'contain' }}
+          source={{ uri: image }}
+        />
         <View
           style={{
             flexDirection: 'row',
@@ -42,7 +45,7 @@ const NewArrialItem = ({ title, image, price, textColor, backgroundColor, onPres
   )
 }
 
-const NewArrival = ({ newArrialData, setSelectedId, selectedId }) => {
+const NewArrival = ({ newArrialData, handleClickProduct }) => {
   return (
     <View
       style={{
@@ -79,20 +82,17 @@ const NewArrival = ({ newArrialData, setSelectedId, selectedId }) => {
         scrollEnabled={true}
         data={newArrialData}
         renderItem={({ item }) => {
-          const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#ffffff'
-          const color = item.id === selectedId ? 'white' : 'black'
           return (
             <NewArrialItem
-              backgroundColor={backgroundColor}
-              onPress={() => setSelectedId(item.id)}
-              textColor={color}
+              backgroundColor={'#ffffff'}
+              onPress={() => handleClickProduct(item.id)}
+              textColor={'black'}
               title={item.title}
               image={item.image}
               price={item.price}
             />
           )
         }}
-        extraData={selectedId}
         keyExtractor={(item) => item.id}
         showsHorizontalScrollIndicator={false}
       />

@@ -2,7 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 import ProductItem from './ProductItem'
 
-const ProductList = ({ productListData, selectedId, setSelectedId }) => {
+const ProductList = ({ productsData, handleClickProduct }) => {
   return (
     <View
       style={{
@@ -12,18 +12,15 @@ const ProductList = ({ productListData, selectedId, setSelectedId }) => {
         width: '100%',
       }}
     >
-      {productListData.map((item) => {
-        const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#ffffff'
-        const color = item.id === selectedId ? 'white' : 'black'
+      {productsData.data.map((item) => {
         return (
           <ProductItem
             key={item.id}
-            backgroundColor={backgroundColor}
             image={item.image}
             price={item.price}
-            textColor={color}
             title={item.title}
-            onPress={() => setSelectedId(item.id)}
+            backgroundColor={'#ffffff'}
+            onPress={() => handleClickProduct(item.id)}
           />
         )
       })}
