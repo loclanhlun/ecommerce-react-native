@@ -11,7 +11,7 @@ import ProductDetails from '../productDetailScreen/ProductDetail'
 import products from '../../mocks/productTableMock'
 import Spinner from 'react-native-loading-spinner-overlay'
 import SearchBar from './SearchBar'
-import Card from '../card/Card'
+import Cart from '../card/Cart'
 const { actions } = productsSlice
 
 const Home = ({ navigation }) => {
@@ -22,6 +22,7 @@ const Home = ({ navigation }) => {
   const [isAddToCard, setIsAddToCard] = useState(false)
   const [productDetailsVisible, setProductDetailsVisible] = useState(false)
   const [selectedFilterId, setSelectedFilterId] = useState(1)
+  const [totalPrice, setTotalPrice] = useState(0)
   const dispatch = useDispatch()
   const productsState = useSelector((state) => state.product)
   const getAllProduct = () => {
@@ -34,14 +35,26 @@ const Home = ({ navigation }) => {
     dispatch({ type: actions.productsByCategoryStartCall().type, category: category })
   }
   const addToCard = (product) => {
+    const productToAdd = {
+      ...product,
+      quantity: 1,
+    }
     setIsAddToCard(true)
-    dispatch({ type: actions.addCardStartCall().type, product })
+    setProductDetailsVisible(false)
+    dispatch({ type: actions.addCardStartCall().type, productToAdd })
   }
+
+  const increase = (id) => {
+    dispatch({ type: actions.increaseQuantity().type, id })
+  }
+
+  const decrease = (id) => {
+    dispatch({ type: actions.decreaseQuantity().type, id })
+  }
+
   useEffect(() => {
     getAllProduct()
   }, [])
-
-  console.log(productsState.cardData)
 
   useEffect(() => {
     if (searchText != '') {
@@ -82,6 +95,15 @@ const Home = ({ navigation }) => {
     getProductById(productId)
     setProductDetailsVisible(true)
   }
+
+  useEffect(() => {
+    if (productsState.cardData.data != null) {
+      const totalPrice = productsState.cardData.data.reduce((totalPrice, currentValue) => {
+        return totalPrice + currentValue.price * currentValue.quantity
+      }, 0)
+      setTotalPrice(totalPrice)
+    }
+  }, [productsState.cardData.data])
 
   return (
     <>
@@ -152,7 +174,18 @@ const Home = ({ navigation }) => {
         />
       )}
 
-      {/* {!productsState.cardData?.isLoading && !isAddToCard ? '' : <Card />} */}
+      {!isAddToCard ? (
+        ''
+      ) : (
+        <Cart
+          modalVisible={true}
+          setModalVisible={setIsAddToCard}
+          cardData={productsState.cardData.data}
+          increaseQuantity={increase}
+          decreaseQuantity={decrease}
+          totalPrice={totalPrice}
+        />
+      )}
     </>
   )
 }

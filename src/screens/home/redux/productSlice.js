@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, current } from '@reduxjs/toolkit'
 
 const initialProductsState = {
   products: {
@@ -119,16 +119,24 @@ export const productsSlice = createSlice({
       }
     },
     addCardReceived: (state, action) => {
-      let oldData = state
-      console.log(oldData)
-      // const newData = oldData.push(action.payload)
-      return {
-        ...state,
-        cardData: {
-          data: oldData,
-          isLoading: false,
-          error: null,
-        },
+      let data = [...state.cardData.data]
+      const productIndex = data.findIndex((item) => {
+        const product = action.payload.productToAdd
+        return product.id == item.id
+      })
+      if (productIndex != -1) {
+        const quantity = data[productIndex].quantity + 1
+        state.cardData.data[productIndex].quantity = quantity
+      } else {
+        data.push(action.payload.productToAdd)
+        return {
+          ...state,
+          cardData: {
+            data: data,
+            isLoading: false,
+            error: null,
+          },
+        }
       }
     },
     addCardFailed: (state, action) => {
@@ -139,6 +147,30 @@ export const productsSlice = createSlice({
           isLoading: false,
           error: action.payload,
         },
+      }
+    },
+    increaseQuantity: (state, action) => {
+      const data = state.cardData.data
+      const productIndex = data.findIndex((item) => {
+        const id = action.id
+        return item.id == id
+      })
+
+      state.cardData.data[productIndex].quantity += 1
+    },
+    decreaseQuantity: (state, action) => {
+      const data = state.cardData.data
+      const productIndex = data.findIndex((item) => {
+        const id = action.id
+        return item.id == id
+      })
+
+      const quantity = state.cardData.data[productIndex].quantity
+      if (quantity >= 0) {
+        state.cardData.data[productIndex].quantity -= 1
+        if (state.cardData.data[productIndex].quantity < 1) {
+          state.cardData.data.splice(productIndex, 1)
+        }
       }
     },
   },

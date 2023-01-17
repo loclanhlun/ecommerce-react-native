@@ -142,7 +142,11 @@ const ProductDetails = ({ modalVisible, setModalVisible, productDetailsData, add
               backgroundColor: 'transparent',
             }}
           >
-            <TextButton title={'Add to Card'} disable={false} onPress={() => console.log('aaaa')} />
+            <TextButton
+              title={'Add to Card'}
+              disable={false}
+              onPress={() => addToCard(productDetailsData)}
+            />
           </View>
         </View>
       </View>

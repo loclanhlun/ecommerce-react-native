@@ -22,7 +22,7 @@ const ProductDetailsHeader = ({ handleBack }) => {
           }}
         />
       </TouchableOpacity>
-      <TouchableOpacity onPress={console.log('Back')}>
+      <TouchableOpacity>
         <Image
           source={require('../../../../../assets/images/heart-fill-icon.png')}
           style={{

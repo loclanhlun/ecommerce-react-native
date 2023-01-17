@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, TouchableOpacity, Image, Text } from 'react-native'
 
-const CardHeader = ({ handleBack }) => {
+const CartHeader = ({ handleBack }) => {
   return (
     <View
       style={{
@@ -10,6 +10,7 @@ const CardHeader = ({ handleBack }) => {
         justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: 20,
+        marginTop: 20,
       }}
     >
       <TouchableOpacity onPress={handleBack}>
@@ -30,9 +31,9 @@ const CardHeader = ({ handleBack }) => {
       >
         My Cart
       </Text>
-      <></>
+      <Text></Text>
     </View>
   )
 }
 
-export default CardHeader
+export default CartHeader
