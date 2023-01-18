@@ -11,7 +11,7 @@ import ProductDetails from '../productDetailScreen/ProductDetail'
 import products from '../../mocks/productTableMock'
 import Spinner from 'react-native-loading-spinner-overlay'
 import SearchBar from './SearchBar'
-import Cart from '../card/Cart'
+import Cart from '../cart/Cart'
 const { actions } = productsSlice
 
 const Home = ({ navigation }) => {
